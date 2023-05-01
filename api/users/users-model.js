@@ -1,5 +1,14 @@
 const db = require('../../data/db-config.js');
 
+    /*
+    select
+        u.user_id,
+        u.username,
+        r.role_name
+    from users as u
+    join roles as r
+    on u.role_id = r.role_id; 
+    */
 function find() {
   /**
     You will need to join two tables.
@@ -18,6 +27,10 @@ function find() {
       }
     ]
    */
+  return db('users as u')
+            .leftJoin('roles as r', 'u.role_id','=', 'r.role_id')
+            .select('u.user_id', 'u.username', 'r.role_name')
+
 }
 
 function findBy(filter) {
@@ -34,6 +47,13 @@ function findBy(filter) {
       }
     ]
    */
+
+  return db('users as u')
+              .leftJoin('roles as r', 'u.role_id','=', 'r.role_id')
+              .select('u.user_id', 'u.username', 'u.password', 'r.role_name')
+              .where(filter)
+              .first();
+
 }
 
 function findById(user_id) {
@@ -47,6 +67,11 @@ function findById(user_id) {
       "role_name": "instructor"
     }
    */
+    return db('users as u')
+            .leftJoin('roles as r', 'u.role_id','=', 'r.role_id')
+            .select('u.user_id', 'u.username', 'r.role_name')
+            .where('user_id', user_id)
+            .first();
 }
 
 /**

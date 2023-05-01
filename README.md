@@ -18,9 +18,9 @@ You will complete the following tasks and do any extra wiring and package instal
 
 Write the following user access functions inside `api/users/users-model.js`:
 
-- [ ] `find`
-- [ ] `findBy`
-- [ ] `findById`
+- [X] `find`
+- [X] `findBy`
+- [X] `findById`
 
 #### 2B - Middleware Functions
 
@@ -37,7 +37,7 @@ Authentication will be implemented using JSON Web Tokens.
 
 Write the following endpoints inside `api/auth/auth-router.js`:
 
-- [ ] `[POST] /api/auth/register`
+- [X] `[POST] /api/auth/register`
 - [ ] `[POST] /api/auth/login`
 
 The endpoints inside `api/users/users-router.js` are built already but check them out:
