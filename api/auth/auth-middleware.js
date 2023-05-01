@@ -45,8 +45,20 @@ const only = role_name => (req, res, next) => {
 
     Pull the decoded token from the req object, to avoid verifying it again!
   */
-  next();
+ console.log("role name: ", role_name)
+ console.log("req.decoded", req.decoded)
+  if(req.decodedJwt && req.decodedJwt.role_name === role_name) {
+    next();
+  } else {
+    res.status(403).json({
+      message: "This is not for you"
+    })
+  }
 }
+
+// student token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo2LCJ1c2VybmFtZSI6InNhd3llcmEiLCJyb2xlX25hbWUiOiJzdHVkZW50IiwiaWF0IjoxNjgyOTYxNzQxLCJleHAiOjE2ODMwNDgxNDF9.Rk-z6x9fUv1pRnXrabYOmkhcdit1nuXsylo-o7Q6S3U
+
+// admin token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxLCJ1c2VybmFtZSI6ImJvYiIsInJvbGVfbmFtZSI6ImFkbWluIiwiaWF0IjoxNjgyOTYxNzgxLCJleHAiOjE2ODMwNDgxODF9.20YOwGtQneTreE46iqt2TljS8UWLFMZ7kRbmFlaDI24
 
 
 const checkUsernameExists = async (req, res, next) => {
