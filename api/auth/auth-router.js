@@ -18,8 +18,6 @@ router.post("/register", validateRoleName, async (req, res, next) => {
     }
    */
   try {
-    // console.log("req.body: ", req.body);
-    // console.log("req.role-name: ", req.role_name);
     const { username, password } = req.body;
     const role_name = req.role_name;
 
@@ -53,6 +51,39 @@ router.post("/login", checkUsernameExists, (req, res, next) => {
       "role_name": "admin" // the role of the authenticated user
     }
    */
+
+    const { username, password } = req.body;
+
+    User.findBy({ username })
+      .then(user => {
+        if(user && bcrypt.compareSync(password, user.password)) {
+          const token = buildToken(user);
+          res.status(200).json({message: `${username} is back!`, token: token});
+        } else {
+          res.status(401).json({message: "Invalid credentials"})
+        }
+      })
+      .catch(next);
 });
+
+
+
+/* helper function buildToken (user)
+	payload = subject (id), username, role
+	options = exp date of token (expiresIn)
+	return jwt.sign(payload, [secret string!], options)
+*/
+
+function buildToken(user) {
+  const payload = {
+    subject: user.user_id,
+    username: user.username,
+    role: user.role_name
+  }
+  const options = {
+    expiresIn: '1d'
+  }
+  return jwt.sign(payload, JWT_SECRET, options);
+}
 
 module.exports = router;

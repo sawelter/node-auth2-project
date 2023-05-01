@@ -29,7 +29,7 @@ Write the following auth middlewares inside `api/auth/auth-middleware.js`:
 - [ ] `restricted`
 - [ ] `only`
 - [ ] `checkUsernameExists`
-- [ ] `validateRoleName`
+- [X] `validateRoleName`
 
 #### 2C - Endpoints
 
@@ -47,7 +47,7 @@ The endpoints inside `api/users/users-router.js` are built already but check the
 
 #### 2D - Secrets File
 
-Complete the `secrets/index.js` file.
+- [X] Complete the `secrets/index.js` file.
 
 #### Users Schema
 
