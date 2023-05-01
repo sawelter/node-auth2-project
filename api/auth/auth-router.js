@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../users/users-model')
 
-router.post("/register", /*validateRoleName,*/ async (req, res, next) => {
+router.post("/register", validateRoleName, async (req, res, next) => {
   /**
     [POST] /api/auth/register { "username": "anna", "password": "1234", "role_name": "angel" }
 
@@ -20,7 +20,9 @@ router.post("/register", /*validateRoleName,*/ async (req, res, next) => {
   try {
     // console.log("req.body: ", req.body);
     // console.log("req.role-name: ", req.role_name);
-    const { username, password, role_name } = req.body;
+    const { username, password } = req.body;
+    const role_name = req.role_name;
+
     const hash = bcrypt.hashSync(password);
     const newUser = { username, password: hash, role_name};
     const result = await User.add(newUser);
